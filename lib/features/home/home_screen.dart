@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: currentPosition == null
@@ -119,3 +119,22 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    Color color = Colors.blue,
+    required VoidCallback onTap,
+  }) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      onPressed: onTap,
+      icon: Icon(icon, size: 20),
+      label: Text(label),
+    );
+  }
+}
