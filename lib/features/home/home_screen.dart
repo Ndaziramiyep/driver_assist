@@ -54,3 +54,68 @@ class _HomeScreenState extends State<HomeScreen> {
       SnackBar(content: Text('Clicked on $action')),
     );
   }
+
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: currentPosition == null
+          ? const Center(child: CircularProgressIndicator())
+          : Stack(
+              children: [
+                GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: currentPosition!,
+                    zoom: 14,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                ),
+                Positioned(
+                  bottom: 40,
+                  left: 20,
+                  right: 20,
+                  child: Column(
+                    children: [
+                      _buildQuickActions(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+    );
+  }
+
+  Widget _buildQuickActions() {
+    return Column(
+      children: [
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            _buildActionButton(
+              icon: Icons.local_gas_station,
+              label: 'Find Fuel',
+              onTap: () => _onActionTap('Fuel Stations'),
+            ),
+            _buildActionButton(
+              icon: Icons.handyman,
+              label: 'Find Mechanic',
+              onTap: () => _onActionTap('Mechanics'),
+            ),
+            _buildActionButton(
+              icon: Icons.local_shipping,
+              label: 'Request Fuel',
+              onTap: () => _onActionTap('Fuel Delivery'),
+            ),
+            _buildActionButton(
+              icon: Icons.emergency,
+              label: 'SOS',
+              color: Colors.red,
+              onTap: () => _onActionTap('SOS Emergency'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
